@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:aop="http://www.springframework.org/schema/aop"
@@ -12,7 +11,14 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/task  
 		http://www.springframework.org/schema/task/spring-task-3.1.xsd">
-		
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="configProperties">
+		</property>
+	</bean>
+	<bean name="testbean" class="cn.orgid.funny.config.client.ConfigClient.TestBean">
+		<property name="t" value="1"></property>
+	</bean>	
 	<bean id="configProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetObject" ref="configClient"></property>
 		<property name="targetMethod" value="getConfigProperties"></property>
