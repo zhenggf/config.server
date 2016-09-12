@@ -12,6 +12,7 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/task  
 		http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+		
 	<bean id="configProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetObject" ref="configClient"></property>
 		<property name="targetMethod" value="getConfigProperties"></property>

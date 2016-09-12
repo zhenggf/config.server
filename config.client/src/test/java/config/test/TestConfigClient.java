@@ -12,6 +12,8 @@ public class TestConfigClient extends TestBase {
 	@Autowired
 	ConfigClient client;
 	
+	
+	
 	@Test
 	public void test(){
 		
@@ -19,6 +21,7 @@ public class TestConfigClient extends TestBase {
 		Properties ps =client.getConfigProperties();
 		System.out.println(ps);
 		
+		//System.out.println(ps1);
 	}
 
 }
