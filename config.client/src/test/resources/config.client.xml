@@ -16,8 +16,8 @@
 		<property name="properties" ref="configProperties">
 		</property>
 	</bean>
-	<bean name="testbean" class="cn.orgid.funny.config.client.ConfigClient.TestBean">
-		<property name="t" value="1"></property>
+	<bean id="test" class="cn.orgid.funny.config.client.ConfigClient.TestBean">
+		<property name="t" value="${123}"></property>
 	</bean>	
 	<bean id="configProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetObject" ref="configClient"></property>
