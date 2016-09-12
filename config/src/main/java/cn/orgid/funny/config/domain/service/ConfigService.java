@@ -46,32 +46,30 @@ public class ConfigService {
 
 	public void createConfigGroup(ConfigGroup configGroup) {
 
-		checkAccessToken();
+		AccessToken t = tokenThreadLocalComponent.get();
+		AccessToken accessToken = accessTokenDAO.findOne(t.getId());
+		if (!accessToken.isValid(t.getAppId(),t.getToken())) {
+			throw new ApplicationException("access token error");
+		}
 		if (configGroupDAO.findByGroupCode(configGroup.getGroupCode()) != null)
 			throw new ApplicationException("配置组编码已存在");
-		AccessToken t = tokenThreadLocalComponent.get();
 		configGroup.setAppId(t.getAppId());
 		configGroupDAO.save(configGroup);
 
 	}
 
-	private AccessToken checkAccessToken() {
-
-		AccessToken t = tokenThreadLocalComponent.get();
-		AccessToken accessToken = accessTokenDAO.findOne(t.getId());
-		if (!accessToken.isValid(t)) {
-			throw new ApplicationException("access token error");
-		}
-		return accessToken;
-
-	}
+	
 
 	public void addConfigFields(List<ConfigField> configFields) {
 
 		if (configFields == null) {
 			return;
 		}
-		checkAccessToken();
+		AccessToken t = tokenThreadLocalComponent.get();
+		AccessToken accessToken = accessTokenDAO.findOne(t.getId());
+		if (!accessToken.isValid(t.getAppId(),t.getToken())) {
+			throw new ApplicationException("access token error");
+		}
 		Set<String> set = new HashSet<String>();
 		for (ConfigField configField : configFields) {
 			if (set.contains(configField.getKeyName())) {
@@ -84,21 +82,16 @@ public class ConfigService {
 
 	}
 
-	public List<ConfigField> findGroupFieldsByGroupId(Long groupId) {
+	
 
-		checkAccessToken();
-		AccessToken t = tokenThreadLocalComponent.get();
-		List<ConfigField> configFields = configRecordDAO.findByGroupId(groupId);
-
-		return configRecordDAO.findByGroupId(groupId);
-
-	}
-
-	public List<ConfigField> findGroupFields() {
+	public List<ConfigField> findApplicationFields() {
 		
 		
-		checkAccessToken();
 		AccessToken t = tokenThreadLocalComponent.get();
+		AccessToken accessToken = accessTokenDAO.findOne(t.getId());
+		if (!accessToken.isValid(t.getAppId(),t.getToken())) {
+			throw new ApplicationException("access token error");
+		}
 		List<ConfigField> ls = configRecordDAO.findByAppId(t.getAppId());
 		return ls;
 

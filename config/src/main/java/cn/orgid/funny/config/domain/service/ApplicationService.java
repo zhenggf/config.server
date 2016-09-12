@@ -48,10 +48,20 @@ public class ApplicationService {
 		
 	}
 	
-	
-	
-	
-	
+	public AccessToken refreshApplicationAccessToken(){
+		
+		AccessToken t = accessTokenThreadLocalComponent.get();
+		AccessToken accessToken = accessTokenDAO.findOne(t.getId());
+		if (!accessToken.isValid(t.getAppId(),t.getToken())) {
+			throw new ApplicationException("access token error");
+		}
+		accessToken.refresh();
+		accessTokenDAO.save(t);
+		Application app = applicationDAO.findOne(accessToken.getAppId());
+		t.setK(app.getK());
+		return t;
+		
+	}
 	
 	
 }

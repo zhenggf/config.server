@@ -45,17 +45,7 @@ public class TestApplicationService extends TestBase {
 		configField.setAppId(token.getAppId());
 		configFields.add(configField);
 		configService.addConfigFields(configFields);
-		List<ConfigField> list = configService.findGroupFieldsByGroupId(c.getId());
-		if(list!=null&&list.size()>0){
-			ConfigField cf = list.get(0);
-			if(cf.isEncrypted()){
-				String s=EncrypUtil.decrypt(cf.getValue(), token.getK());
-				System.out.println(s);
-			}else{
-				System.out.println(cf.getValue());
-			}
-		}
-		System.out.println(list);
+		configService.findApplicationFields();
 		
 	}
 

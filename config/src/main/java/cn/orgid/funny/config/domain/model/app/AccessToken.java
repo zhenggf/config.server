@@ -80,13 +80,13 @@ public class AccessToken extends ModelBase{
 		this.token = token;
 	}
 
-	public boolean isValid(AccessToken accessToken) {
+	public boolean isValid(Long appId,String accessToken) {
 		
 		if(isExpire()){
 			throw new ApplicationException("access token  expired");
 		}
-		if(accessToken!=null&&accessToken.getToken().equals(token)
-				&&accessToken.getId()==getId()){
+		if(accessToken!=null&&accessToken.equals(token)
+				&&appId==getId()){
 			return true;
 		}
 		return false;
