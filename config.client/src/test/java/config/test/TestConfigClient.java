@@ -24,7 +24,6 @@ public class TestConfigClient extends TestBase {
 		System.out.println(ps);
 		System.out.println("bean get t:"+bean.getT());
 		
-		//System.out.println(ps1);
 	}
 
 }
