@@ -26,7 +26,7 @@ public class ConfigAction {
 	public String getConfigFields(AccessToken accessToken,ModelMap map){
 		
 		accessTokenThreadLocalComponent.set(accessToken);
-		List<ConfigField> fields = configService.findGroupFields();
+		List<ConfigField> fields = configService.findApplicationFields();
 		JsonResult r = JsonResult.success(fields);
 		map.put(JsonResult.k, r);
 		return "/json/json";
