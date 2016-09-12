@@ -22,8 +22,16 @@ database.password=dbpasword
 
 database.user=dbuser
 
+4、启动服务
+cd config
+mvn clean install
+cd ..
+cd config.service
+mvn clean jetty:run
 
-增加文件 ~/config/config.client.properties
+
+
+5、增加文件 ~/config/config.client.properties
 
 config.app.k1=appKey
 
@@ -31,4 +39,7 @@ config.app.k2=secret
 
 config.service.url=http://host:port/config
 
+6、测试
+cd config.client
+mvn clean test
 
