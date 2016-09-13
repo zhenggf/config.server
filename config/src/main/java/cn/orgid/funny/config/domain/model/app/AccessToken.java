@@ -106,11 +106,11 @@ public class AccessToken extends ModelBase{
 	}
 	
 
-	public void refresh(Application application) {
+	public void refresh() {
 		
 		token =UUID.randomUUID().toString().replaceAll("-", "");
 		tokenExpireTime=new Date(new Date().getTime()+1000*60*60*5);
-		k=application.getK();
+		
 		
 	}
 

@@ -46,10 +46,12 @@ public class ApplicationService {
 		if(token==null){
 			 token = application.createAccessToken();
 			 accessTokenDAO.save(token);
-		}
-		if(token.isExpire()){
-			token.refresh(application);
-			accessTokenDAO.save(token);
+		}else{
+			if(token.isExpire()){
+				token.refresh();
+				accessTokenDAO.save(token);
+			}
+			token.setK(application.getK());
 		}
 		return token;
 		
