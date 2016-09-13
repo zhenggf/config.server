@@ -75,6 +75,8 @@ public class AccessToken extends ModelBase{
 		return accessToken;
 	
 	}
+	
+	
 
 	public String getToken() {
 		return token;
@@ -102,11 +104,13 @@ public class AccessToken extends ModelBase{
 		return (tokenExpireTime!=null&&new Date().getTime()>tokenExpireTime.getTime());
 		
 	}
+	
 
-	public void refresh() {
+	public void refresh(Application application) {
 		
 		token =UUID.randomUUID().toString().replaceAll("-", "");
 		tokenExpireTime=new Date(new Date().getTime()+1000*60*60*5);
+		k=application.getK();
 		
 	}
 

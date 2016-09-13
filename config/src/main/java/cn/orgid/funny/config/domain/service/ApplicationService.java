@@ -48,7 +48,7 @@ public class ApplicationService {
 			 accessTokenDAO.save(token);
 		}
 		if(token.isExpire()){
-			token.refresh();
+			token.refresh(application);
 			accessTokenDAO.save(token);
 		}
 		return token;
