@@ -92,7 +92,7 @@ public class AccessToken extends ModelBase{
 			throw new ApplicationException("access token  expired");
 		}
 		if(accessToken!=null&&accessToken.equals(token)
-				&&appId==getId()){
+				&&appId==this.appId){
 			return true;
 		}
 		return false;
