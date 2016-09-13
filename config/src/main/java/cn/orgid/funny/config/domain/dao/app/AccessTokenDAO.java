@@ -10,4 +10,6 @@ public interface AccessTokenDAO extends JpaRepository<AccessToken, Long>{
 
 	AccessToken findByAppIdAndToken(Long appId, String token);
 
+	AccessToken findByAppId(Long id);
+
 }

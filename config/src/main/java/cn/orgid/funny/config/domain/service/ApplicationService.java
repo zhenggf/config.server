@@ -42,26 +42,20 @@ public class ApplicationService {
 		if(application==null){
 			throw new ApplicationException("appid or secret error!");
 		}
-		AccessToken token = application.createAccessToken();
-		accessTokenDAO.save(token);
+		AccessToken token = accessTokenDAO.findByAppId(application.getId());
+		if(token==null){
+			 token = application.createAccessToken();
+			 accessTokenDAO.save(token);
+		}
+		if(token.isExpire()){
+			token.refresh();
+			accessTokenDAO.save(token);
+		}
 		return token;
 		
 	}
 	
-	public AccessToken refreshApplicationAccessToken(){
-		
-		AccessToken t = accessTokenThreadLocalComponent.get();
-		AccessToken accessToken = accessTokenDAO.findOne(t.getId());
-		if (!accessToken.isValid(t.getAppId(),t.getToken())) {
-			throw new ApplicationException("access token error");
-		}
-		accessToken.refresh();
-		accessTokenDAO.save(t);
-		Application app = applicationDAO.findOne(accessToken.getAppId());
-		t.setK(app.getK());
-		return t;
-		
-	}
+	
 	
 	
 }
