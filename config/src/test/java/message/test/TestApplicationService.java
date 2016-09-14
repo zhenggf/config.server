@@ -28,6 +28,7 @@ public class TestApplicationService extends TestBase {
 		
 		Application application =appService.createApplication("测试应用"+System.currentTimeMillis());
 		AccessToken token = appService.getApplicationAccessToken(application.getAppKey(), application.getSecret());
+		token = appService.getApplicationAccessToken(application.getAppKey(), application.getSecret());
 		component.set(token);
 		ConfigGroup c=new ConfigGroup();
 		c.setAppId(token.getAppId());
