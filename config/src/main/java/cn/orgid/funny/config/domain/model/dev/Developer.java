@@ -1,4 +1,4 @@
-package cn.orgid.funny.config.domain.model.app;
+package cn.orgid.funny.config.domain.model.dev;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
