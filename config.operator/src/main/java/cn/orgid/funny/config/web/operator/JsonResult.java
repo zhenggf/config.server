@@ -1,4 +1,4 @@
-package cn.orgid.funny.config.remote.service;
+package cn.orgid.funny.config.web.operator;
 
 
 
