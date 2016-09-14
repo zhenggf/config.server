@@ -1,4 +1,7 @@
 # config.server
+版权声明
+版权属于杭州瑞象网络科技所有
+
 
 目的和意义
 大部分企业系统，都会有很多需要动态配置的信息，一般情况下，都是通过配置文件来配置，系统启动时加载配置文件
@@ -54,5 +57,5 @@ config.service.url=http://host:port/config
 cd config.client
 mvn clean test
 
-©版权所有 杭州瑞象网络科技有限公司
+
 
