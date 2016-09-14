@@ -1,4 +1,4 @@
-package cn.orgid.funny.config.web.operator;
+package cn.orgid.funny.config.web.developer;
 
 
 
