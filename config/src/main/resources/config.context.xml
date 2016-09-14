@@ -84,4 +84,8 @@
 	<context:component-scan base-package="cn.orgid.funny.config.domain" />
 	<transaction:annotation-driven
 		transaction-manager="transactionManager" />
+		
+	<bean class="cn.orgid.funny.config.domain.component.SystemConfig">
+		<property name="encryptKey" value="${encryptKey}"></property>
+	</bean>
 </beans>
