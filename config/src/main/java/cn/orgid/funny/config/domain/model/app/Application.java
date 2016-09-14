@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cn.orgid.funny.config.domain.model.base.ModelBase;
 import cn.orgid.funny.config.domain.util.EncrypUtil;
@@ -25,7 +26,13 @@ public class Application extends ModelBase {
 
 	private String secret;
 
-	private String k;
+	
+	
+	
+	private String k1;
+	
+	private String k2;
+	
 	
 	private Long parentId;
 	
@@ -40,12 +47,10 @@ public class Application extends ModelBase {
 	}
 
 	public String getK() {
-		return k;
+		return EncrypUtil.decrypt(k2, k1);
 	}
 
-	public void setK(String k) {
-		this.k = k;
-	}
+	
 
 	public String getAppKey() {
 		return appKey;
@@ -75,7 +80,7 @@ public class Application extends ModelBase {
 
 		AccessToken accessToken = AccessToken.createApplicationAccessToken();
 		accessToken.setAppId(getId());
-		accessToken.setK(k);
+		accessToken.setK(getK());
 		return accessToken;
 
 	}
@@ -84,7 +89,9 @@ public class Application extends ModelBase {
 
 		this.appKey = UUID.randomUUID().toString().replaceAll("-", "");
 		this.secret = UUID.randomUUID().toString().replace("-", "");
-		k=EncrypUtil.getEncryptionKey();
+		String key=EncrypUtil.getEncryptionKey();
+		k1=EncrypUtil.getEncryptionKey();
+		k2=EncrypUtil.encryt(key, k1);
 
 	}
 
