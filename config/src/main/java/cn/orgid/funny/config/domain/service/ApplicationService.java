@@ -28,10 +28,11 @@ public class ApplicationService {
 	@Autowired
 	SystemConfig systemConfig;
 	
+	
+	
 	public Application createApplication(String name){
 		
 		Application application=new  Application();
-		
 		application.setName(name);
 		application.init(systemConfig.getEncryptKey());
 		applicationDAO.save(application);
