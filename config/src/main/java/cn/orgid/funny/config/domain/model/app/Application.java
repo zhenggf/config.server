@@ -50,6 +50,10 @@ public class Application extends ModelBase {
 		
 	}
 	
+	public String getDecryptK(String key){
+		return EncrypUtil.decrypt(k, key);
+	}
+	
 	public void  setK(String k){
 		
 		this.k=k;
@@ -91,12 +95,12 @@ public class Application extends ModelBase {
 	}
 
 	
-	public void init() {
+	public void init(String key) {
 
 		this.appKey = UUID.randomUUID().toString().replaceAll("-", "");
 		this.secret = UUID.randomUUID().toString().replace("-", "");
 		k=EncrypUtil.getEncryptionKey();
-		
+		k=EncrypUtil.encryt(k, key);
 	}
 	
 	public void  encrypt(String key){
@@ -110,6 +114,14 @@ public class Application extends ModelBase {
 	public static void main(String[] args) {
 		
 		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+		
+	}
+
+	public AccessToken refreshAccessToken(AccessToken token,String key) {
+		
+		token.refresh();
+		token.setK(EncrypUtil.decrypt(k, key));
+		return token;
 		
 	}
 

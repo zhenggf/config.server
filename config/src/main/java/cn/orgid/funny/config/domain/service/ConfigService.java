@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import cn.orgid.funny.config.domain.component.AccessTokenThreadLocalComponent;
+import cn.orgid.funny.config.domain.component.SystemConfig;
 import cn.orgid.funny.config.domain.dao.app.AccessTokenDAO;
 import cn.orgid.funny.config.domain.dao.app.ApplicationDAO;
 import cn.orgid.funny.config.domain.dao.config.ConfigFieldDAO;
@@ -43,6 +44,9 @@ public class ConfigService {
 
 	@Autowired
 	AccessTokenThreadLocalComponent tokenThreadLocalComponent;
+	
+	@Autowired
+	SystemConfig systemConfig;
 
 	public void createConfigGroup(ConfigGroup configGroup) {
 
@@ -128,7 +132,7 @@ public class ConfigService {
 				map.put(configField.getGroupId(), app);
 			}
 			configField.setValue(EncrypUtil.encryt(configField.getValue(),
-					app.getK()));
+					app.getDecryptK(systemConfig.getEncryptKey())));
 			configField.setEncrypted(true);
 			configRecordDAO.save(configField);
 		} catch (Throwable e) {

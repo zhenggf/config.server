@@ -4,11 +4,11 @@ public class SystemConfig {
 	
 	private String encryptKey;
 
-	public String getEncriptKey() {
+	public String getEncryptKey() {
 		return encryptKey;
 	}
 
-	public void setEncriptKey(String encriptKey) {
+	public void setEncryptKey(String encriptKey) {
 		this.encryptKey = encriptKey;
 	}
 	

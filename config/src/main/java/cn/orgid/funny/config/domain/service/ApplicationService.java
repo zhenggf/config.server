@@ -33,7 +33,7 @@ public class ApplicationService {
 		Application application=new  Application();
 		
 		application.setName(name);
-		application.init();
+		application.init(systemConfig.getEncryptKey());
 		applicationDAO.save(application);
 		return application;
 		
@@ -47,14 +47,13 @@ public class ApplicationService {
 		}
 		AccessToken token = accessTokenDAO.findByAppId(application.getId());
 		if(token==null){
-			 token = application.createAccessToken(systemConfig.getEncriptKey());
+			 token = application.createAccessToken(systemConfig.getEncryptKey());
 			 accessTokenDAO.save(token);
 		}else{
 			if(token.isExpire()){
-				token.refresh();
+				token=application.refreshAccessToken(token,systemConfig.getEncryptKey());
 				accessTokenDAO.save(token);
 			}
-			token.setK(application.getK());
 		}
 		return token;
 		
