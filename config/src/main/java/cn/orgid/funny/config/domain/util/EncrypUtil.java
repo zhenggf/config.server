@@ -19,7 +19,6 @@ public class EncrypUtil {
 	private static Cipher c;
 	
 	static {
-		
 		 try {
 			c = Cipher.getInstance(AES);
 		} catch (NoSuchAlgorithmException e) {
@@ -29,6 +28,7 @@ public class EncrypUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	public static String encryt(String str, String key) {
@@ -80,6 +80,12 @@ public class EncrypUtil {
 		}
 		return encryptionKey;
 
+	}
+	
+	public static void main(String[] args) {
+		
+		System.out.println(EncrypUtil.encryt("1","c4ca4238a0b923820dcc509a6f75849b"));
+		
 	}
 
 }

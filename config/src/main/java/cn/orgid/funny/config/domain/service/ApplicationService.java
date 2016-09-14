@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.orgid.funny.config.domain.component.AccessTokenThreadLocalComponent;
+import cn.orgid.funny.config.domain.component.SystemConfig;
 import cn.orgid.funny.config.domain.dao.app.AccessTokenDAO;
 import cn.orgid.funny.config.domain.dao.app.ApplicationDAO;
 import cn.orgid.funny.config.domain.exception.ApplicationException;
@@ -24,6 +25,8 @@ public class ApplicationService {
 	AccessTokenThreadLocalComponent accessTokenThreadLocalComponent;
 	
 	
+	@Autowired
+	SystemConfig systemConfig;
 	
 	public Application createApplication(String name){
 		
@@ -44,7 +47,7 @@ public class ApplicationService {
 		}
 		AccessToken token = accessTokenDAO.findByAppId(application.getId());
 		if(token==null){
-			 token = application.createAccessToken();
+			 token = application.createAccessToken(systemConfig.getEncriptKey());
 			 accessTokenDAO.save(token);
 		}else{
 			if(token.isExpire()){
@@ -54,6 +57,7 @@ public class ApplicationService {
 			token.setK(application.getK());
 		}
 		return token;
+		
 		
 	}
 	

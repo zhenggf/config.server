@@ -29,9 +29,7 @@ public class Application extends ModelBase {
 	
 	
 	
-	private String k1;
-	
-	private String k2;
+	private String k;
 	
 	
 	private Long parentId;
@@ -47,9 +45,16 @@ public class Application extends ModelBase {
 	}
 
 	public String getK() {
-		return EncrypUtil.decrypt(k2, k1);
+		
+		return k;
+		
 	}
-
+	
+	public void  setK(String k){
+		
+		this.k=k;
+		
+	}
 	
 
 	public String getAppKey() {
@@ -76,24 +81,31 @@ public class Application extends ModelBase {
 		this.secret = secret;
 	}
 
-	public AccessToken createAccessToken() {
+	public AccessToken createAccessToken(String key) {
 
 		AccessToken accessToken = AccessToken.createApplicationAccessToken();
 		accessToken.setAppId(getId());
-		accessToken.setK(getK());
+		accessToken.setK(EncrypUtil.decrypt(k, key));
 		return accessToken;
 
 	}
 
+	
 	public void init() {
 
 		this.appKey = UUID.randomUUID().toString().replaceAll("-", "");
 		this.secret = UUID.randomUUID().toString().replace("-", "");
-		String key=EncrypUtil.getEncryptionKey();
-		k1=EncrypUtil.getEncryptionKey();
-		k2=EncrypUtil.encryt(key, k1);
-
+		k=EncrypUtil.getEncryptionKey();
+		
 	}
+	
+	public void  encrypt(String key){
+		
+		k=EncrypUtil.encryt(k, key);
+		
+	}
+	
+	
 
 	public static void main(String[] args) {
 		
