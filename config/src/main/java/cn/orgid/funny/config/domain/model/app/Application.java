@@ -117,9 +117,11 @@ public class Application extends ModelBase {
 		
 	}
 
-	public AccessToken refreshAccessToken(AccessToken token,String key) {
+	public AccessToken refreshAccessTokenIfNeed(AccessToken token,String key) {
 		
-		token.refresh();
+		if(token.isExpire()){
+			token.refresh();
+		}
 		token.setK(EncrypUtil.decrypt(k, key));
 		return token;
 		

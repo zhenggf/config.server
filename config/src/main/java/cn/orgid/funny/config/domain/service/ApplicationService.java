@@ -50,10 +50,10 @@ public class ApplicationService {
 			 token = application.createAccessToken(systemConfig.getEncryptKey());
 			 accessTokenDAO.save(token);
 		}else{
-			if(token.isExpire()){
-				token=application.refreshAccessToken(token,systemConfig.getEncryptKey());
+			
+				application.refreshAccessTokenIfNeed(token,systemConfig.getEncryptKey());
 				accessTokenDAO.save(token);
-			}
+			
 		}
 		return token;
 		
