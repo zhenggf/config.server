@@ -49,9 +49,9 @@ public class ApplicationService {
 	
 	public AccessToken getApplicationAccessToken(String appKey,String secret){
 		
-		Application application = applicationDAO.findByAppKeyAndSecret(appKey, secret);
-		if(application==null){
-			throw new ApplicationException("appid or secret error!");
+		Application application = applicationDAO.findByAppKey(appKey);
+		if(application==null||!application.isSecretValid(secret,systemConfig.getEncryptKey())){
+			throw new ApplicationException("appkey error!");
 		}
 		AccessToken token = accessTokenDAO.findByAppId(application.getId());
 		if(token==null){

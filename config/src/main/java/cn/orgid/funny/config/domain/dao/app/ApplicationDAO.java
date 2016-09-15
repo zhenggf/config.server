@@ -11,6 +11,8 @@ public interface ApplicationDAO extends JpaRepository<Application, Long> {
 	Application findByAppKeyAndSecret(String appId, String secret);
 
 	List<Application> findByEncrypted(boolean b);
+
+	Application findByAppKey(String appKey);
 	
 	
 

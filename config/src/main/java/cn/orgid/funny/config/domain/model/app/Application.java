@@ -1,9 +1,11 @@
 package cn.orgid.funny.config.domain.model.app;
 
 import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import cn.orgid.funny.config.domain.model.base.ModelBase;
 import cn.orgid.funny.config.domain.util.EncrypUtil;
 
@@ -129,6 +131,18 @@ public class Application extends ModelBase {
 
 	public void setEncrypted(boolean encrypted) {
 		this.encrypted = encrypted;
+	}
+
+	public boolean isSecretValid(String secret2,String key) {
+		
+		if(secret2==null){
+			return false;
+		}
+		if(encrypted){
+			secret2=EncrypUtil.encryt(secret2, key);
+		}
+		return secret2.equals(secret);
+	
 	}
 
 }
