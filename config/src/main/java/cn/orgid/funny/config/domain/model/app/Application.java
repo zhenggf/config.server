@@ -1,12 +1,9 @@
 package cn.orgid.funny.config.domain.model.app;
 
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import cn.orgid.funny.config.domain.model.base.ModelBase;
 import cn.orgid.funny.config.domain.util.EncrypUtil;
 
@@ -16,8 +13,6 @@ public class Application extends ModelBase {
 
 	private static final long serialVersionUID = 1L;
 	
-
-	
 	@Column(unique=true)
 	private String name;
 
@@ -25,7 +20,8 @@ public class Application extends ModelBase {
 	private String appKey;
 
 	private String secret;
-
+	
+	private boolean encrypted;
 	
 	
 	
@@ -125,6 +121,14 @@ public class Application extends ModelBase {
 		token.setK(EncrypUtil.decrypt(k, key));
 		return token;
 		
+	}
+
+	public boolean isEncrypted() {
+		return encrypted;
+	}
+
+	public void setEncrypted(boolean encrypted) {
+		this.encrypted = encrypted;
 	}
 
 }
