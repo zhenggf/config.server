@@ -83,6 +83,7 @@ public class ApplicationService {
 		for (Application application : applications) {
 			application.setEncrypted(true);
 			application.setSecret(EncrypUtil.encryt(application.getSecret(), systemConfig.getEncryptKey()));
+			applicationDAO.save(application);
 		}
 		encrypting = false;
 
