@@ -1,6 +1,11 @@
 package cn.orgid.funny.config.domain.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import cn.orgid.funny.config.domain.component.AccessTokenThreadLocalComponent;
@@ -10,9 +15,15 @@ import cn.orgid.funny.config.domain.dao.app.ApplicationDAO;
 import cn.orgid.funny.config.domain.exception.ApplicationException;
 import cn.orgid.funny.config.domain.model.app.AccessToken;
 import cn.orgid.funny.config.domain.model.app.Application;
+import cn.orgid.funny.config.domain.model.config.ConfigField;
+import cn.orgid.funny.config.domain.util.EncrypUtil;
 
 @Service
 public class ApplicationService {
+	
+	private boolean encrypting = false;
+
+	private Object EncryptingLock = new Object();
 	
 	
 	@Autowired
@@ -62,6 +73,23 @@ public class ApplicationService {
 	}
 	
 	
-	
+	@Scheduled(cron = "5 * * * * ?")
+	public void encryptApplication() {
+
+		synchronized (EncryptingLock) {
+			if (encrypting) {
+				return;
+			} else {
+				encrypting = true;
+			}
+		}
+		List<Application> applications = applicationDAO.findByEncrypted(false);
+		for (Application application : applications) {
+			application.setEncrypted(true);
+			application.setSecret(EncrypUtil.encryt(application.getSecret(), systemConfig.getEncryptKey()));
+		}
+		encrypting = false;
+
+	}
 	
 }
